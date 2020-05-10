@@ -2,8 +2,6 @@ package com.wdullaer.datetimepickerexample;
 
 import android.graphics.Color;
 import android.os.Bundle;
-import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +9,9 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
 
 import com.wdullaer.materialdatetimepicker.time.TimePickerDialog;
 import com.wdullaer.materialdatetimepicker.time.Timepoint;
@@ -93,13 +94,20 @@ public class TimePickerFragment extends Fragment implements TimePickerDialog.OnT
                         mode24Hours.isChecked()
                 );
             }
+
+            int bgColor = Color.parseColor("#1d2733");
+            tpd.setCircleColor(bgColor);
+            tpd.setRadialTextViewColor(Color.WHITE);
+            tpd.setTimePickerBackgroundColor(bgColor);
+            tpd.setTimeRadialPickerBackgroundColor(bgColor);
+
             tpd.setThemeDark(modeDarkTime.isChecked());
             tpd.vibrate(vibrateTime.isChecked());
             tpd.dismissOnPause(dismissTime.isChecked());
             tpd.enableSeconds(enableSeconds.isChecked());
             tpd.setVersion(showVersion2.isChecked() ? TimePickerDialog.Version.VERSION_2 : TimePickerDialog.Version.VERSION_1);
             if (modeCustomAccentTime.isChecked()) {
-                tpd.setAccentColor(Color.parseColor("#9C27B0"));
+                tpd.setAccentColor(Color.parseColor("#a178fa"));
             }
             if (titleTime.isChecked()) {
                 tpd.setTitle("TimePicker Title");

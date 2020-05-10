@@ -22,6 +22,18 @@ interface TimePickerController {
     int getAccentColor();
 
     /**
+     * Get circle color (clock background color)
+     * @return
+     */
+    Integer getCircleColor();
+
+    /**
+     * Get numbers color on the border of the circle
+     * @return
+     */
+    Integer getRadialTextViewColor();
+
+    /**
      * @return Version - The current version to render
      */
     TimePickerDialog.Version getVersion();

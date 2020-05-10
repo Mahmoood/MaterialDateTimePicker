@@ -25,11 +25,12 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Canvas;
 import android.graphics.Paint;
-import android.graphics.Typeface;
 import android.graphics.Paint.Align;
-import androidx.core.content.ContextCompat;
+import android.graphics.Typeface;
 import android.util.Log;
 import android.view.View;
+
+import androidx.core.content.ContextCompat;
 
 import com.wdullaer.materialdatetimepicker.R;
 
@@ -96,7 +97,12 @@ public class RadialTextsView extends View {
 
         // Set up the paint.
         int textColorRes = controller.isThemeDark() ? R.color.mdtp_white : R.color.mdtp_numbers_text_color;
-        mPaint.setColor(ContextCompat.getColor(context, textColorRes));
+        if (controller.getRadialTextViewColor() != null) {
+            mPaint.setColor(controller.getRadialTextViewColor());
+        } else {
+            mPaint.setColor(ContextCompat.getColor(context, textColorRes));
+        }
+
         String typefaceFamily = res.getString(R.string.mdtp_radial_numbers_typeface);
         mTypefaceLight = Typeface.create(typefaceFamily, Typeface.NORMAL);
         String typefaceFamilyRegular = res.getString(R.string.mdtp_sans_serif);

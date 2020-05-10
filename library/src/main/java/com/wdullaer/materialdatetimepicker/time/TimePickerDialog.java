@@ -25,14 +25,6 @@ import android.content.res.Resources;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
-import androidx.annotation.ColorInt;
-import androidx.annotation.IntRange;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.annotation.StringRes;
-import androidx.appcompat.app.AppCompatDialogFragment;
-import androidx.core.content.ContextCompat;
-import androidx.core.content.res.ResourcesCompat;
 import android.util.Log;
 import android.view.KeyCharacterMap;
 import android.view.KeyEvent;
@@ -44,6 +36,15 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import androidx.annotation.ColorInt;
+import androidx.annotation.IntRange;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.annotation.StringRes;
+import androidx.appcompat.app.AppCompatDialogFragment;
+import androidx.core.content.ContextCompat;
+import androidx.core.content.res.ResourcesCompat;
 
 import com.wdullaer.materialdatetimepicker.HapticFeedbackController;
 import com.wdullaer.materialdatetimepicker.R;
@@ -129,9 +130,13 @@ public class TimePickerDialog extends AppCompatDialogFragment implements
     private boolean mIs24HourMode;
     private String mTitle;
     private boolean mThemeDark;
+    private Integer mTimeRadialPickerBackgroundColor;
+    private Integer mTimePickerBackgroundColor;
     private boolean mThemeDarkChanged;
     private boolean mVibrate;
     private Integer mAccentColor = null;
+    private Integer mCircleColor = null;
+    private Integer mRadialTextViewColor = null;
     private boolean mDismissOnPause;
     private boolean mEnableSeconds;
     private boolean mEnableMinutes;
@@ -283,6 +288,22 @@ public class TimePickerDialog extends AppCompatDialogFragment implements
         mAccentColor = Color.argb(255, Color.red(color), Color.green(color), Color.blue(color));
     }
 
+    public void setCircleColor(int circleColor) {
+        mCircleColor = circleColor;
+    }
+
+    public void setRadialTextViewColor(Integer radialTextViewColor) {
+        mRadialTextViewColor = radialTextViewColor;
+    }
+
+    public void setTimePickerBackgroundColor(Integer timePickerBackgroundColor) {
+        mTimePickerBackgroundColor = timePickerBackgroundColor;
+    }
+
+    public void setTimeRadialPickerBackgroundColor(Integer timeRadialPickerBackgroundColor) {
+        mTimeRadialPickerBackgroundColor = timeRadialPickerBackgroundColor;
+    }
+
     /**
      * Set the text color of the OK button
      * @param color the color you want
@@ -332,6 +353,16 @@ public class TimePickerDialog extends AppCompatDialogFragment implements
     @Override
     public int getAccentColor() {
         return mAccentColor;
+    }
+
+    @Override
+    public Integer getCircleColor() {
+        return mCircleColor;
+    }
+
+    @Override
+    public Integer getRadialTextViewColor() {
+        return mRadialTextViewColor;
     }
 
     /**
@@ -1004,8 +1035,19 @@ public class TimePickerDialog extends AppCompatDialogFragment implements
         int darkBackgroundColor = ContextCompat.getColor(context, R.color.mdtp_light_gray);
         int lightGray = ContextCompat.getColor(context, R.color.mdtp_light_gray);
 
-        mTimePicker.setBackgroundColor(mThemeDark? lightGray : circleBackground);
-        view.findViewById(R.id.mdtp_time_picker_dialog).setBackgroundColor(mThemeDark ? darkBackgroundColor : backgroundColor);
+        if (mTimeRadialPickerBackgroundColor != null) {
+            mTimePicker.setBackgroundColor(mTimeRadialPickerBackgroundColor);
+        } else {
+            mTimePicker.setBackgroundColor(mThemeDark? lightGray : circleBackground);
+        }
+
+        View timePickerDialog = view.findViewById(R.id.mdtp_time_picker_dialog);
+        if (mTimePickerBackgroundColor != null) {
+            timePickerDialog.setBackgroundColor(mTimePickerBackgroundColor);
+        } else {
+            timePickerDialog.setBackgroundColor(mThemeDark ? darkBackgroundColor : backgroundColor);
+        }
+
         return view;
     }
 

@@ -20,9 +20,10 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Canvas;
 import android.graphics.Paint;
-import androidx.core.content.ContextCompat;
 import android.util.Log;
 import android.view.View;
+
+import androidx.core.content.ContextCompat;
 
 import com.wdullaer.materialdatetimepicker.R;
 
@@ -61,6 +62,9 @@ public class CircleView extends View {
 
         int colorRes = controller.isThemeDark() ? R.color.mdtp_circle_background_dark_theme : R.color.mdtp_circle_color;
         mCircleColor = ContextCompat.getColor(context, colorRes);
+        if (controller.getCircleColor() != null) {
+            mCircleColor = controller.getCircleColor();
+        }
         mDotColor = controller.getAccentColor();
         mPaint.setAntiAlias(true);
 
